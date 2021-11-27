@@ -1,10 +1,10 @@
 version: "2.4"
 services:
-
-
   # Algorand node.  Can't use catchup mode, so takes a long time to get to current block.
   algorand-node:
-    image: algorand/stable
+
+    # Use Algorand tesnet.  To use mainnet, change to algorand/stable.
+    image: algorand/testnet
     command: /bin/sh -c "./goal node start -l 0.0.0.0:8080 -d /var/algorand/data && sleep infinity"
     ports:
       - 8080:8080
@@ -25,6 +25,8 @@ services:
       POSTGRES_USER: algorand
       POSTGRES_PASSWORD: indexer34u
       POSTGRES_DB: pgdb
+    volumes:
+      - /var/postgresql:/var/lib/postgresql
 
   # Algorand indexer which reads from algorand-node, and writes to indexer-db
   indexer:
