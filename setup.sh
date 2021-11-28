@@ -25,13 +25,15 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
 # Install Docker compose
-
 wget https://github.com/docker/compose/releases/download/v2.1.0/docker-compose-linux-x86_64
 sudo mv ./docker-compose-linux-x86_64 /usr/local/bin/docker-compose
 sudo chmod a+x /usr/local/bin/docker-compose
 
 # Create data directory for algorand, which will be shared among node & indexer
 sudo mkdir -p /var/algorand/data
+
+# Data directory for postgresql
+sudo mkdir  -p /var/lib/postgresql/data/
 
 # Copy node-config.json to data directory
 sudo cp config.json /var/algorand/config.json
@@ -41,4 +43,4 @@ sudo docker-compose run algorand-node sh -c "cp -R /root/node/data/* /var/algora
 sudo docker-compose run algorand-node sh -c "cp /var/algorand/config.json /var/algorand/data/"
 
 # Start everything up
-sudo docker-compose up -d algorand-node
+sudo docker-compose up -d

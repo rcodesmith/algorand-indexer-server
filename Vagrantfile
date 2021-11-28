@@ -6,6 +6,9 @@ Vagrant.configure("2") do |config|
     google.google_project_id = "<your google cloud project ID here>"
     google.google_json_key_location = "<Path to JSON key here>"
   
+    # 2vCPU, 4GB
+    google.machine_type='e2-medium'
+
     # Use Ubuntu 20.04
     google.image_family = 'ubuntu-2004-lts'
 
@@ -24,7 +27,7 @@ Vagrant.configure("2") do |config|
 
   # Copy docker-compose.yml and Algorand Node config files to VM
   config.vm.provision "file", source: "./docker-compose.yml", destination: "docker-compose.yml"
-  config.vm.provision "file", source: "./node-config.json", destination: "node-config.json"
+  config.vm.provision "file", source: "./node-config.json", destination: "config.json"
 
   # Execute setup script on the VM
   config.vm.provision "shell", path: "setup.sh"
